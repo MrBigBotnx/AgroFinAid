@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório de Financiamentos - AgroFinAid</title>
+    <style>
+        /* Estilos da Tabela */
+        .fund-requests-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .fund-requests-table th, .fund-requests-table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .fund-requests-table th {
+            background-color: #3498db;
+            color: #fff;
+            font-weight: normal;
+        }
+
+        .fund-requests-table td {
+            color: #333;
+        }
+
+        /* Estilos dos Botões */
+        .btn {
+            padding: 6px 12px;
+            border-radius: 4px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        .view-btn {
+            background-color: #3498db;
+        }
+
+        .edit-btn {
+            background-color: #f39c12;
+        }
+
+        .view-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .edit-btn:hover {
+            background-color: #e67e22;
+        }
+
+        /* Cabeçalho e Rodapé */
+        .header {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <div class="header">Relatório de Financiamentos - AgroFinAid</div>
+
+    <!-- Tabela de Financiamentos -->
+    <table class="fund-requests-table">
+        <thead>
+            <tr>
+                <th>ID requisitado</th>
+                <th>Termos de Reembolso</th>
+                <th>Condições</th>
+                <th>Status</th>
+                <th>Criado em</th>
+                <th>Valor requisitado</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in financiamentos %}
+            <tr>
+                <td>{{ request.id }}</td>
+                <td>{{ request.termos_reembolso|default:"Termos não definidos" }}</td>
+                <td>{{ request.condicoes|default:"Condições não definidas" }}</td>
+                <td>{{ request.get_status_display }}</td>
+                <td>{{ request.data_criacao|date:"Y-m-d" }}</td>
+                <td>{{ request.valor }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Rodapé -->
+    <div class="footer">&copy; 2024 AgroFinAid. Todos os direitos reservados.</div>
+
+</body>
+</html>

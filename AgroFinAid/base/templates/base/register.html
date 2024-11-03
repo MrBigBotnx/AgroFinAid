@@ -1,0 +1,107 @@
+<!-- base/templates/base/register.html -->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro - AgroFinAid</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+  <body>
+    <div class="register-container">
+      <h2>Registrar</h2>
+
+      <!-- Formulário de Registro -->
+      <form method="POST" action="{% url 'register' %}" id="registerForm">
+        {% csrf_token %}
+
+        <div class="form-group">
+          <label for="username">Nome do usuário</label>
+          <input type="text" id="username" name="username" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="idade">Idade</label>
+          <input type="number" id="idade" name="idade" required />
+        </div>
+        <div class="form-group">
+          <label for="tipo_atividade">Tipo de Atividade</label>
+          <select id="tipo_atividade" name="tipo_atividade" required>
+            <option value="">Selecione uma opção</option>
+            <option value="Negócio">Negócio</option>
+            <option value="Agricultura">Agricultura</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required
+            pattern="^(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+            title="A senha deve ter no mínimo 8 caracteres, incluindo uma letra maiúscula e um caractere especial."
+          />
+        </div>
+        <div class="form-group">
+          <label for="confirm_password">Confirmar Senha</label>
+          <input
+            type="password"
+            id="confirm_password"
+            name="confirm_password"
+            required
+          />
+        </div>
+        <button type="submit" class="register-btn">Registrar</button>
+      </form>
+
+      <p>Já possui uma conta? <a href="{% url 'login' %}">Entre aqui</a></p>
+    </div>
+
+    <script>
+      // Validação de confirmação de senha
+      document
+        .getElementById("confirm_password")
+        .addEventListener("input", function () {
+          const password = document.getElementById("password").value;
+          const confirmPassword = this.value;
+          this.setCustomValidity(
+            password === confirmPassword ? "" : "As senhas não coincidem."
+          );
+        });
+    </script>
+
+    <script>
+      document
+        .getElementById("registerForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const formData = new FormData(this);
+
+          fetch("{% url 'ajax_register' %}", {
+            method: "POST",
+            body: formData,
+            headers: {
+              "X-CSRFToken": "{{ csrf_token }}",
+            },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                alert(data.message);
+                window.location.href = "{% url 'login' %}"; // Redireciona ao login após o registro
+              } else {
+                alert(data.message);
+              }
+            })
+            .catch((error) => console.error("Erro:", error));
+        });
+    </script>
+  </body>
+</html>

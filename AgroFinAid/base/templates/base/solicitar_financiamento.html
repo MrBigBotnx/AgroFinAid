@@ -1,0 +1,89 @@
+<!-- templates/solicitar_financiamento.html -->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Solicitação de Financiamento</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+  <body>
+    <div class="finance-form-container">
+      <h2>Solicitação de Financiamento</h2>
+      <form
+        method="post"
+        action="{% url 'solicitar_financiamento' %}"
+        id="financeForm"
+      >
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="id_valor">Valor Solicitado (USD)</label>
+          {{ financiamento_form.valor }}
+        </div>
+        <div class="form-group">
+          <label for="id_descricao">Descrição da Atividade</label>
+          {{ atividade_form.descricao }}
+        </div>
+        <div class="form-group">
+          <label for="id_insumos">Insumos Necessários</label>
+          {{ atividade_form.insumos }}
+        </div>
+        <div class="form-group">
+          <label for="id_ferramentas">Ferramentas e Equipamentos</label>
+          {{ atividade_form.ferramentas }}
+        </div>
+        <div class="form-group">
+          <label for="id_recursos_necessarios"
+            >Recursos Necessários (Mão-de-obra, etc.)</label
+          >
+          {{ atividade_form.recursos_necessarios }}
+        </div>
+        <button type="submit" class="submit-btn">
+          Solicitar Financiamento
+        </button>
+      </form>
+    </div>
+
+    <script>
+      document
+        .getElementById("financeForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const formData = new FormData(this);
+
+          fetch("{% url 'solicitar_financiamento' %}", {
+            method: "POST",
+            body: formData,
+            headers: {
+              "X-CSRFToken": "{{ csrf_token }}",
+            },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                alert(data.message);
+                window.location.href = "{% url 'dashboard' %}";
+              } else {
+                console.error("Erros do formulário:", data.errors);
+                let errorMessages = "";
+                if (data.errors) {
+                  for (const form in data.errors) {
+                    for (const field in data.errors[form]) {
+                      errorMessages += `${field}: ${data.errors[form][
+                        field
+                      ].join(", ")}\n`;
+                    }
+                  }
+                }
+                alert(
+                  "Erro ao validar os dados do formulário:\n" + errorMessages
+                );
+              }
+            })
+            .catch((error) => console.error("Erro:", error));
+        });
+    </script>
+  </body>
+</html>

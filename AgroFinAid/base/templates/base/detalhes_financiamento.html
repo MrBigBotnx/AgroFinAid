@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Financiamento - Amortização</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <h2>Detalhes do Financiamento</h2>
+    <p><strong>Valor do Financiamento:</strong> {{ financiamento.valor }}</p>
+    <p><strong>Prazo:</strong> {{ financiamento.prazo }} meses</p>
+    <p><strong>Taxa de Juros:</strong> {{ financiamento.taxa_juros }} % ao mês</p>
+
+    <h3>Plano de Amortização</h3>
+    <table class="fund-requests-table">
+        <thead>
+            <tr>
+                <th>Mês</th>
+                <th>Data de Pagamento</th>
+                <th>Valor da Parcela</th>
+                <th>Amortização</th>
+                <th>Juros</th>
+                <th>Saldo Devedor</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for amortizacao in amortizacoes %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ amortizacao.data_pagamento }}</td>
+                <td>{{ amortizacao.valor_pagamento }}</td>
+                <td>{{ amortizacao.historico_reembolsos }}</td>
+                <td>{{ amortizacao.saldo_devedor }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!-- templates/base/editar_financiamento.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Financiamento</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        .edit-form-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .edit-form-container h2 {
+            color: #3498db;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input[type="number"], .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="edit-form-container">
+            <h2>Editar Financiamento</h2>
+            <form method="post">
+                {% csrf_token %}
+                
+                <!-- Campo de Valor do Financiamento -->
+                <div class="form-group">
+                    <label for="id_valor">Valor do Financiamento (USD)</label>
+                    {{ financiamento_form.valor }}
+                </div>
+
+                <!-- Campos de Atividade -->
+                <div class="form-group">
+                    <label for="id_descricao">Descrição da Atividade</label>
+                    {{ atividade_form.descricao }}
+                </div>
+                <div class="form-group">
+                    <label for="id_insumos">Insumos Necessários</label>
+                    {{ atividade_form.insumos }}
+                </div>
+                <div class="form-group">
+                    <label for="id_ferramentas">Ferramentas e Equipamentos</label>
+                    {{ atividade_form.ferramentas }}
+                </div>
+                <div class="form-group">
+                    <label for="id_recursos_necessarios">Recursos Necessários (Mão-de-obra, etc.)</label>
+                    {{ atividade_form.recursos_necessarios }}
+                </div>
+
+                <button type="submit" class="submit-btn">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Meus Financiamentos</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1>AgroFinAid</h1>
+        <nav>
+          <a href="{% url 'dashboard' %}">Dashboard</a>
+          <a href="{% url 'detalhes_financiamento' %}">Amortização dos financiamentos</a>
+          <a href="{% url 'solicitar_financiamento' %}"
+            >Requisitar financiamento</a
+          >
+        </nav>
+        <div class="user-menu">
+          <button class="notification-btn"><i class="fas fa-bell"></i></button>
+          <button class="user-btn"><i class="fas fa-user"></i></button>
+        </div>
+      </header>
+
+      <div class="content">
+        <h2>Financiamentos</h2>
+
+        <div class="filters">
+          <input type="text" placeholder="Status" />
+          <input type="text" placeholder="Valor" />
+          <input type="text" placeholder="Intervalo de data" />
+          <button>Procurar financiamentos</button>
+        </div>
+
+        {% if financiamentos %}
+        <table class="fund-requests-table">
+            <thead>
+                <tr>
+                    <th>ID requisitado</th>
+                    <th>Termos de Reembolso</th>
+                    <th>Condições</th>
+                    <th>Status</th>
+                    <th>Criado em</th>
+                    <th>Valor requisitado</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for request in financiamentos %}
+                <tr>
+                    <td>{{ request.id }}</td>
+                    <td>{{ request.termos_reembolso|default:"Termos não definidos" }}</td> <!-- Certifique-se de que esse campo está presente -->
+                    <td>{{ request.condicoes|default:"Condições não definidas" }}</td> <!-- Certifique-se de que esse campo está presente -->
+                    <td>{{ request.get_status_display }}</td>
+                    <td>{{ request.data_criacao|date:"Y-m-d" }}</td>
+                    <td>{{ request.valor }}</td>
+                    <td>
+                        <a href="{% url 'view_fund_request' request.id %}" class="btn view-btn">Ver</a>
+                      
+                        {% if request.status == 'P' %}
+                            <a href="{% url 'edit_fund_request' request.id %}" class="btn edit-btn">Editar</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'gerar_relatorio_pdf' %}" class="download-pdf-btn">Baixar Relatório PDF</a>
+        {% else %}
+        <br />
+        <center><p>Você ainda não possui financiamentos.</p></center>
+        <br />
+        <center>
+          <a
+            href="{% url 'solicitar_financiamento' %}"
+            class="btn create-fund-btn"
+            >Requisitar Financiamento</a
+          >
+        </center>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

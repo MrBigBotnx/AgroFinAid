@@ -1,0 +1,77 @@
+<!-- templates/base/view_fund_request.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar Financiamento</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        .view-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .details-table th, .details-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        .details-table th {
+            background-color: #3498db;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="view-container">
+            <h2>Detalhes do Financiamento</h2>
+            <table class="details-table">
+                <tr><th>ID</th><td>{{ financiamento.id }}</td></tr>
+                <tr><th>Beneficiário</th><td>{{ financiamento.beneficiario.nome_completo }}</td></tr>
+                <tr><th>Valor</th><td>{{ financiamento.valor }}</td></tr>
+                <tr><th>Status</th><td>{{ financiamento.get_status_display }}</td></tr>
+                <tr><th>Data de Criação</th><td>{{ financiamento.data_criacao|date:"Y-m-d" }}</td></tr>
+                <tr><th>Termos de Reembolso</th><td>{{ financiamento.termos_reembolso }}</td></tr>
+                <tr><th>Condições</th><td>{{ financiamento.condicoes }}</td></tr>
+            </table>
+
+            <h2>Atividades Relacionadas</h2>
+            {% if atividades %}
+                <table class="details-table">
+                    <thead>
+                        <tr>
+                            <th>Descrição da Atividade</th>
+                            <th>Insumos</th>
+                            <th>Ferramentas</th>
+                            <th>Recursos Necessários</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for atividade in atividades %}
+                            <tr>
+                                <td>{{ atividade.descricao }}</td>
+                                <td>{{ atividade.insumos }}</td>
+                                <td>{{ atividade.ferramentas }}</td>
+                                <td>{{ atividade.recursos_necessarios }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>Não há atividades associadas a este financiamento.</p>
+            {% endif %}
+
+            <a href="{% url 'dashboard' %}" class="btn view-btn" style="margin-top: 20px; display: inline-block;">Voltar ao Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

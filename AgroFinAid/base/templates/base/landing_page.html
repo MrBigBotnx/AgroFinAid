@@ -1,0 +1,119 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AgriFinAid - Plataforma de Financiamento Agrícola</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+  <body>
+    <!-- Imagem de fundo inserida como elemento <img> -->
+    <img
+      src="{% static 'images/Agricultura.jpg' %}"
+      alt="Imagem de Fundo"
+      class="background-image"
+    />
+
+    <!-- Cabeçalho -->
+    <header class="header">
+      <h1>AgriFinAid</h1>
+      <nav>
+        <a href="#sobre">Sobre</a>
+        <a href="#beneficios">Benefícios</a>
+        <a href="#como-funciona">Como Funciona</a>
+        <!-- <a href="#contato">Contato</a> -->
+        <a class="login-btn" href="{% url 'login' %}" style="color: aliceblue">
+          Requisitar financiamento</a
+        >
+      </nav>
+    </header>
+
+    <!-- Seção de Hero -->
+    <section class="hero">
+      <div class="container">
+        <h2 style="font-weight: 900;">Conectando Agricultores com Financiadores</h2>
+        <p style="font-weight: 800; color: darkslategrey;">
+          Facilitamos o acesso ao financiamento para agricultores e pequenos
+          negócios, impulsionando o desenvolvimento agrícola.
+        </p>
+        <a href="#sobre" class="create-fund-btn">Saiba Mais</a>
+      </div>
+    </section>
+
+    <!-- Seção Sobre -->
+    <section id="sobre" class="content">
+      <div class="container card">
+        <h2>Sobre o AgriFinAid</h2>
+        <p style="text-align: justify; font-weight: 500;">
+          AgriFinAid é uma plataforma inovadora que conecta agricultores e
+          pequenos negócios rurais com oportunidades de financiamento,
+          promovendo o crescimento e a sustentabilidade do setor agrícola.
+        </p>
+      </div>
+    </section>
+
+    <!-- Seção de Benefícios -->
+    <section id="beneficios" class="content">
+      <div class="container card">
+        <h2>Benefícios</h2>
+        <ul style="font-weight: 500; text-align: justify;">
+          <li>Acesso facilitado ao financiamento</li>
+          <li>Suporte especializado para pequenos negócios agrícolas</li>
+          <li>Parcerias com diversas fontes de financiamento</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Seção Como Funciona -->
+    <section id="como-funciona" class="content">
+      <div class="container card">
+        <h2>Como Funciona</h2>
+        <p style="text-align: justify;">Nosso processo é simples e eficiente:</p>
+        <ol style="text-align: justify;">
+          <li>Inscreva-se na plataforma</li>
+          <li>Envie sua solicitação de financiamento</li>
+          <li>Conecte-se com financiadores interessados</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Seção de Contato
+    <section id="contato" class="content">
+      <div class="container_card">
+        <h2>Entre em Contato</h2>
+        <p>
+          Se você tem dúvidas ou deseja saber mais, entre em contato conosco.
+        </p>
+        <form class="finance-form-container">
+          <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="mensagem">Mensagem</label>
+            <textarea
+              id="mensagem"
+              name="mensagem"
+              rows="5"
+              required
+            ></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Enviar Mensagem</button>
+        </form>
+      </div>
+    </section> -->
+
+    <!-- Rodapé -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2024 AgriFinAid. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+  </body>
+</html>
