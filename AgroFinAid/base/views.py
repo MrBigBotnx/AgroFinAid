@@ -341,9 +341,20 @@ def gerar_relatorio_pdf(request):
 def detalhes_financiamento(request, financiamento_id):
     financiamento = get_object_or_404(Financiamento, id=financiamento_id)
     amortizacoes = financiamento.amortizacao_set.all()
-    return render(request, 'base/detalhes_financiamento.html', {'financiamento': financiamento, 'amortizacoes': amortizacoes})
+    return render(request, 'base/detalhes_financiamento.html', {
+        'financiamento': financiamento,
+        'amortizacoes': amortizacoes
+    })
+
 
 @login_required
 def amortizacao_geral(request):
     financiamentos = Financiamento.objects.all()
     return render(request, 'base/amortizacao_geral.html', {'financiamentos': financiamentos})
+
+@login_required
+def selecionar_financiamento(request):
+    beneficiario = request.user.beneficiario
+    financiamentos = Financiamento.objects.filter(beneficiario=beneficiario)
+    return render(request, 'base/selecionar_financiamento.html', {'financiamentos': financiamentos})
+

@@ -14,7 +14,7 @@
         <h1>AgroFinAid</h1>
         <nav>
           <a href="{% url 'dashboard' %}">Dashboard</a>
-          <a href="{% url 'detalhes_financiamento' %}">Amortização dos financiamentos</a>
+          <a href="{% url 'selecionar_financiamento' %}">Amortização dos financiamentos</a>
           <a href="{% url 'solicitar_financiamento' %}"
             >Requisitar financiamento</a
           >
@@ -64,6 +64,9 @@
                             <a href="{% url 'edit_fund_request' request.id %}" class="btn edit-btn">Editar</a>
                         {% endif %}
                     </td>
+                    <td>
+                      <a href="{% url 'detalhes_financiamento' request.id %}" class="btn view-btn">Ver Amortização</a>
+                  </td>
                 </tr>
                 {% endfor %}
             </tbody>

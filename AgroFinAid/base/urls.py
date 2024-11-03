@@ -33,9 +33,10 @@ urlpatterns = [
 
     path('relatorio/pdf/', views.gerar_relatorio_pdf, name='gerar_relatorio_pdf'),
    
-    path('detalhes_financiamento/<int:financiamento_id>/', views.detalhes_financiamento, name='detalhes_financiamento'),
-
     path('amortizacao/', views.amortizacao_geral, name='amortizacao_geral'),
 
+    path('selecionar_financiamento/', views.selecionar_financiamento, name='selecionar_financiamento'),
+    
+    path('detalhes_financiamento/<int:financiamento_id>/', views.detalhes_financiamento, name='detalhes_financiamento'),
 
 ]
